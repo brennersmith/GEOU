@@ -20,6 +20,15 @@ map.fitBounds(bounds);
 // Set the maximum bounds to restrict panning
 map.setMaxBounds(bounds);
 
+// Function to dynamically adjust bounds when the window resizes
+function adjustBounds() {
+    map.invalidateSize();  // Fix layout issues
+    map.fitBounds(bounds); // Re-fit the map to match the resized window
+}
+
+// Listen for window resize events
+window.addEventListener('resize', adjustBounds);
+
 // Define rectangular regions with bounds and names
 const rectangles = [
     { bounds: [[200, 420], [350, 750]], name: "Math and Science Center" },
