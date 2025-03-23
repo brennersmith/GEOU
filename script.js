@@ -191,7 +191,7 @@ const names = [
 // Mapping of folder names to the number of images in each folder
 const folderImageCounts = {
     "Dodge Hall": 10,
-    "Engineering Center": 9,
+    "Engineering Center": 5,
     "Elliott Hall": 12,
     "Hannah Hall": 9,
     "Hillcrest Hall": 10,
