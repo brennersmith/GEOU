@@ -260,7 +260,7 @@ function startNewRound() {
     }
 
     const chosenName = chooseRandomName();
-    randomNameElement.textContent = `Round ${currentRound}/${totalRounds} - Find: ${chosenName}`;
+    randomNameElement.textContent = `Round ${currentRound}/${totalRounds}`; // Update round info only
     setRandomImage(chosenName);
 
     // Find and set the correct rectangle for the chosen name

@@ -6,14 +6,46 @@
         <title>GEOU</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <link rel="stylesheet" href="styles.css" />
+        <style>
+            .logo-container {
+                text-align: center;
+                margin-top: 20px;
+            }
+            #start-game-button {
+                background: url('playButton.png') no-repeat center center;
+                background-size: contain;
+                width: 200px; /* Adjust width as needed */
+                height: 100px; /* Adjust height as needed */
+                border: none;
+                cursor: pointer;
+                position: absolute;
+                top: 20%; /* Move the button up */
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #start-game-button:hover {
+                background: url('playButtonHover.png') no-repeat center center;
+                background-size: contain;
+            }
+            #duck-icon {
+                position: absolute;
+                bottom: 100;
+                left: 0;
+                width: 50px; /* Adjust size as needed */
+                height: auto;
+            }
+        </style>
     </head>
-</html>
-<body bgcolor="#87CEEB">
-    <div class="container">
-        <a href="game-main.html">
-            <button id="start-game-button">Play Game</button>
-        </a>
-    </div>
-    <img src="GEOU_logo.png" alt="logo"/>
-</body>
+    <body bgcolor="#87CEEB">
+        <div class="logo-container">
+            <img src="GEOU_logo.png" alt="logo"/>
+        </div>
+        <div class="container">
+            <a href="game-main.html">
+                <button id="start-game-button"></button>
+            </a>
+        </div>
+        <img id="duck-icon" src="duck.png" alt="Duck Icon"/>
+    </body>
 </html>
