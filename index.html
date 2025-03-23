@@ -1,37 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css" />
-</head>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GEOU</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+</html>
+<style>
+    body {
+        background-image: url(homescreen_background.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
 <body>
-    <div id="map-container">
-        <div id="map"></div>
-        <button id="submit-button">Submit</button>
+    <div class="container">
+        <a href="game-main.html">
+            <button id="start-game-button">Play Game</button>
+        </a>
     </div>
-    <div id="random-name-container">
-        <p id="random-name"></p>
-    </div>
-    <div id="image-container">
-        <img id="random-image" alt="Randomly selected image" />
-    </div>
-    <div id="score-container">
-        <p>Score: <span id="score">0</span></p>
-    </div>
-    <div id="end-game-modal" class="modal">
-        <div class="modal-content">
-            <p id="final-score"></p>
-            <button id="retry-button">Retry</button>
-            <button id="home-button">Home</button>
-        </div>
-    </div>
-    <div id="feedback-popup" class="popup">
-        <p id="feedback-message"></p>
-    </div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
