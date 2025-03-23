@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="styles.css" />
     <style>
         #home-button {
-            background: url('home-icon.png') no-repeat center center;
+            background: url('homeIcon.png') no-repeat center center;
             background-size: contain;
-            width: 75px; /* Adjust width as needed */
-            height: 75px; /* Adjust height as needed */
-            border: solid;
-            background:'white';
+            width: 100px; /* Adjust width as needed */
+            height: 100px; /* Adjust height as needed */
             font-weight: bold;
             cursor: pointer;
             position: absolute;
             bottom: 2%; /* Move the button up */
             left: 5%;
             transform: translate(-50%, -50%);
+            border: none; /* Remove the border */
+        }
+
+        #home-button:hover {
+            background: url('homeIconHover.png') no-repeat center center;
+            background-size: contain;
         }
     </style>
 </head>
