@@ -18,6 +18,21 @@
     cursor: pointer;
 }
 
+#logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translation(-50%, -50%);
+    width: 200px;
+    height: auto;
+}
+
+#logo img {
+    display: block;
+    width: 150px;
+    height: auto;
+}
+
 .container {
     position: relative;
     height: 100vh;
@@ -120,8 +135,8 @@
 
 #score-container {
     position: fixed;
-    top: 50px;
-    left: 50%;
+    top: 25x;
+    left: 95%;
     transform: translateX(-50%);
     z-index: 1000;
     background-color: white;
