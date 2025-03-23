@@ -7,6 +7,22 @@
     <link rel="icon" href="duck.png">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        #home-button {
+            background: url('home-icon.png') no-repeat center center;
+            background-size: contain;
+            width: 75px; /* Adjust width as needed */
+            height: 75px; /* Adjust height as needed */
+            border: solid;
+            background:'white';
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            bottom: 2%; /* Move the button up */
+            left: 5%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
     <div id="map-container">
@@ -21,6 +37,11 @@
     </div>
     <div id="score-container">
         <p>Score: <span id="score">0</span></p>
+    </div>
+    <div class="container">
+        <a href="index.html">
+            <button id="home-button"></button>
+        </a>
     </div>
     <div id="end-game-modal" class="modal">
         <div class="modal-content">
