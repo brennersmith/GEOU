@@ -46,6 +46,12 @@
     padding: 10px 20px;
 }
 
+#home-button {
+    position: absolute;
+    bottom: 10px;
+    left: 20%;
+}
+
 #submit-button:hover {
     background-color: #0056b3;
 }
