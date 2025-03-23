@@ -38,8 +38,8 @@ const rectangles = [
     { bounds: [[181,1612],[463,1802]], name: "Pawley Hall" },
     { bounds: [[375,836],[463,1028]], name: "Engineering Center" },
     { bounds: [[453,934],[588,1025]], name: "Engineering Center" },
-    { bounds: [[510,1139],[552,1369]], name: "Elliott Hall" },
-    { bounds: [[417,1065],[522,1231]], name: "Elliott Hall" },
+    { bounds: [[510,1139],[552,1369]], name: "Elliot Hall" },
+    { bounds: [[417,1065],[522,1231]], name: "Elliot Hall" },
     { bounds: [[268,1237],[505,1416]], name: "Varner Hall" },
     { bounds: [[673,1251],[791,1429]], name: "Rec Center" },
     { bounds: [[800,1201],[961,1459]], name: "O'Rena" },
@@ -92,29 +92,6 @@ map.on('click', (e) => {
     submitButton.disabled = !isDuckInRegion();
 });
 
-// Get the feedback popup elements
-const feedbackPopup = document.getElementById('feedback-popup');
-const feedbackMessage = document.getElementById('feedback-message');
-
-// Function to show the feedback popup
-function showFeedbackPopup(isCorrect, correctLocation) {
-    feedbackMessage.textContent = isCorrect
-        ? `Correct! It was ${correctLocation}.`
-        : `Incorrect! It was ${correctLocation}.`;
-
-    feedbackPopup.className = `popup ${isCorrect ? 'correct' : 'incorrect'}`;
-    feedbackPopup.style.display = 'block';
-
-    // Disable the submit button while the popup is visible
-    submitButton.disabled = true;
-
-    // Hide the popup and re-enable the submit button after 2 seconds
-    setTimeout(() => {
-        feedbackPopup.style.display = 'none';
-        submitButton.disabled = false;
-    }, 2000);
-}
-
 // Handle the "Submit" button click
 submitButton.addEventListener('click', () => {
     if (!currentDuckMarker) {
@@ -136,10 +113,8 @@ submitButton.addEventListener('click', () => {
         if (regionName === currentChosenName) {
             score++; // Increment the score
             updateScore(); // Update the score display
-            showFeedbackPopup(true, currentChosenName); // Show "Correct" popup
             currentChosenName = startNewRound(); // Start a new round
         } else {
-            showFeedbackPopup(false, currentChosenName); // Show "Incorrect" popup
             if (correctRectangle) {
                 highlightCorrectRectangle(correctRectangle); // Highlight the correct rectangle
                 setTimeout(() => {
@@ -170,7 +145,7 @@ function highlightCorrectRectangle(correctRegion) {
 
 // List of names
 const names = [
-    "Dodge Hall", "Engineering Center", "Elliott Hall", "Hannah Hall", "Hillcrest Hall", 
+    "Dodge Hall", "Engineering Center", "Elliot Hall", "Hannah Hall", "Hillcrest Hall", 
     "Human Health Building", "Kresge Library", "Math and Science Center", "North Foundation Hall", 
     "O'Dowd Hall", "O'Rena", "Oakland Center", "Pawley Hall", "Rec Center", "South Foundation Hall", 
     "Vandenberg Hall", "Varner Hall", "Wilson Hall"
@@ -180,7 +155,7 @@ const names = [
 const folderImageCounts = {
     "Dodge Hall": 10,
     "Engineering Center": 9,
-    "Elliott Hall": 12,
+    "Elliot Hall": 12,
     "Hannah Hall": 9,
     "Hillcrest Hall": 10,
     "Human Health Building": 6,
@@ -242,9 +217,6 @@ let score = 0; // Initialize the score
 const scoreElement = document.getElementById('score');
 
 let correctRectangle = null; // Variable to store the correct rectangle for the current round
-let currentChosenName = null; // Variable to store the current chosen name
-let currentRound = 0; // Track the current round
-const totalRounds = 10; // Total number of rounds
 
 // Function to update the score display
 function updateScore() {
@@ -253,14 +225,8 @@ function updateScore() {
 
 // Function to start a new round
 function startNewRound() {
-    currentRound++;
-    if (currentRound > totalRounds) {
-        endGame(); // End the game if the round limit is reached
-        return;
-    }
-
     const chosenName = chooseRandomName();
-    randomNameElement.textContent = `Round ${currentRound}/${totalRounds} - Find: ${chosenName}`;
+    randomNameElement.textContent = `Randomly chosen: ${chosenName}`;
     setRandomImage(chosenName);
 
     // Find and set the correct rectangle for the chosen name
@@ -269,43 +235,6 @@ function startNewRound() {
     return chosenName;
 }
 
-// Get modal elements
-const endGameModal = document.getElementById('end-game-modal');
-const finalScoreElement = document.getElementById('final-score');
-const retryButton = document.getElementById('retry-button');
-const homeButton = document.getElementById('home-button');
-
-// Function to show the end-game modal
-function showEndGameModal() {
-    finalScoreElement.textContent = `Game Over! You scored ${score} out of ${totalRounds}.`;
-    endGameModal.style.display = 'flex'; // Show the modal
-}
-
-// Function to end the game
-function endGame() {
-    showEndGameModal();
-}
-
-// Function to reset the game
-function resetGame() {
-    score = 0; // Reset the score
-    currentRound = 0; // Reset the round counter
-    updateScore(); // Update the score display
-    currentChosenName = startNewRound(); // Start the game from round 1
-}
-
-// Event listener for the "Retry" button
-retryButton.addEventListener('click', () => {
-    endGameModal.style.display = 'none'; // Hide the modal
-    resetGame(); // Restart the game
-});
-
-// Event listener for the "Home" button
-homeButton.addEventListener('click', () => {
-    window.location.href = 'index.html'; // Redirect to index.html
-});
-
-
 // Start the first round
-currentChosenName = startNewRound();
+let currentChosenName = startNewRound();
 
