@@ -286,6 +286,14 @@ function endGame() {
     showEndGameModal();
 }
 
+// Function to reset the game
+function resetGame() {
+    score = 0; // Reset the score
+    currentRound = 0; // Reset the round counter
+    updateScore(); // Update the score display
+    currentChosenName = startNewRound(); // Start the game from round 1
+}
+
 // Event listener for the "Retry" button
 retryButton.addEventListener('click', () => {
     endGameModal.style.display = 'none'; // Hide the modal
@@ -294,7 +302,7 @@ retryButton.addEventListener('click', () => {
 
 // Event listener for the "Home" button
 homeButton.addEventListener('click', () => {
-    window.location.href = 'index.html'; // Redirect to index.html
+    window.location.href = 'home.html'; // Redirect to home.html
 });
 
 
