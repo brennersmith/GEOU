@@ -92,29 +92,6 @@ map.on('click', (e) => {
     submitButton.disabled = !isDuckInRegion();
 });
 
-// Get the feedback popup elements
-const feedbackPopup = document.getElementById('feedback-popup');
-const feedbackMessage = document.getElementById('feedback-message');
-
-// Function to show the feedback popup
-function showFeedbackPopup(isCorrect, correctLocation) {
-    feedbackMessage.textContent = isCorrect
-        ? `Correct! It was ${correctLocation}.`
-        : `Incorrect! It was ${correctLocation}.`;
-
-    feedbackPopup.className = `popup ${isCorrect ? 'correct' : 'incorrect'}`;
-    feedbackPopup.style.display = 'block';
-
-    // Disable the submit button while the popup is visible
-    submitButton.disabled = true;
-
-    // Hide the popup and re-enable the submit button after 2 seconds
-    setTimeout(() => {
-        feedbackPopup.style.display = 'none';
-        submitButton.disabled = false;
-    }, 2000);
-}
-
 // Handle the "Submit" button click
 submitButton.addEventListener('click', () => {
     if (!currentDuckMarker) {
@@ -136,10 +113,8 @@ submitButton.addEventListener('click', () => {
         if (regionName === currentChosenName) {
             score++; // Increment the score
             updateScore(); // Update the score display
-            showFeedbackPopup(true, currentChosenName); // Show "Correct" popup
             currentChosenName = startNewRound(); // Start a new round
         } else {
-            showFeedbackPopup(false, currentChosenName); // Show "Incorrect" popup
             if (correctRectangle) {
                 highlightCorrectRectangle(correctRectangle); // Highlight the correct rectangle
                 setTimeout(() => {
@@ -242,9 +217,6 @@ let score = 0; // Initialize the score
 const scoreElement = document.getElementById('score');
 
 let correctRectangle = null; // Variable to store the correct rectangle for the current round
-let currentChosenName = null; // Variable to store the current chosen name
-let currentRound = 0; // Track the current round
-const totalRounds = 10; // Total number of rounds
 
 // Function to update the score display
 function updateScore() {
@@ -253,14 +225,8 @@ function updateScore() {
 
 // Function to start a new round
 function startNewRound() {
-    currentRound++;
-    if (currentRound > totalRounds) {
-        endGame(); // End the game if the round limit is reached
-        return;
-    }
-
     const chosenName = chooseRandomName();
-    randomNameElement.textContent = `Round ${currentRound}/${totalRounds} - Find: ${chosenName}`;
+    randomNameElement.textContent = `Randomly chosen: ${chosenName}`;
     setRandomImage(chosenName);
 
     // Find and set the correct rectangle for the chosen name
@@ -269,35 +235,6 @@ function startNewRound() {
     return chosenName;
 }
 
-// Get modal elements
-const endGameModal = document.getElementById('end-game-modal');
-const finalScoreElement = document.getElementById('final-score');
-const retryButton = document.getElementById('retry-button');
-const homeButton = document.getElementById('home-button');
-
-// Function to show the end-game modal
-function showEndGameModal() {
-    finalScoreElement.textContent = `Game Over! You scored ${score} out of ${totalRounds}.`;
-    endGameModal.style.display = 'flex'; // Show the modal
-}
-
-// Function to end the game
-function endGame() {
-    showEndGameModal();
-}
-
-// Event listener for the "Retry" button
-retryButton.addEventListener('click', () => {
-    endGameModal.style.display = 'none'; // Hide the modal
-    resetGame(); // Restart the game
-});
-
-// Event listener for the "Home" button
-homeButton.addEventListener('click', () => {
-    window.location.href = 'home.html'; // Redirect to home.html
-});
-
-
 // Start the first round
-currentChosenName = startNewRound();
+let currentChosenName = startNewRound();
 

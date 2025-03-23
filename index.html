@@ -18,6 +18,19 @@
     <div id="image-container">
         <img id="random-image" alt="Randomly selected image" />
     </div>
+    <div id="score-container">
+        <p>Score: <span id="score">0</span></p>
+    </div>
+    <div id="end-game-modal" class="modal">
+        <div class="modal-content">
+            <p id="final-score"></p>
+            <button id="retry-button">Retry</button>
+            <button id="home-button">Home</button>
+        </div>
+    </div>
+    <div id="feedback-popup" class="popup">
+        <p id="feedback-message"></p>
+    </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
