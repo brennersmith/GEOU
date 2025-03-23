@@ -294,7 +294,7 @@ retryButton.addEventListener('click', () => {
 
 // Event listener for the "Home" button
 homeButton.addEventListener('click', () => {
-    window.location.href = 'home.html'; // Redirect to home.html
+    window.location.href = 'index.html'; // Redirect to index.html
 });
 
 
