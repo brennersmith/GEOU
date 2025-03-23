@@ -38,8 +38,8 @@ const rectangles = [
     { bounds: [[181,1612],[463,1802]], name: "Pawley Hall" },
     { bounds: [[375,836],[463,1028]], name: "Engineering Center" },
     { bounds: [[453,934],[588,1025]], name: "Engineering Center" },
-    { bounds: [[510,1139],[552,1369]], name: "Elliot Hall" },
-    { bounds: [[417,1065],[522,1231]], name: "Elliot Hall" },
+    { bounds: [[510,1139],[552,1369]], name: "Elliott Hall" },
+    { bounds: [[417,1065],[522,1231]], name: "Elliott Hall" },
     { bounds: [[268,1237],[505,1416]], name: "Varner Hall" },
     { bounds: [[673,1251],[791,1429]], name: "Rec Center" },
     { bounds: [[800,1201],[961,1459]], name: "O'Rena" },
@@ -170,7 +170,7 @@ function highlightCorrectRectangle(correctRegion) {
 
 // List of names
 const names = [
-    "Dodge Hall", "Engineering Center", "Elliot Hall", "Hannah Hall", "Hillcrest Hall", 
+    "Dodge Hall", "Engineering Center", "Elliott Hall", "Hannah Hall", "Hillcrest Hall", 
     "Human Health Building", "Kresge Library", "Math and Science Center", "North Foundation Hall", 
     "O'Dowd Hall", "O'Rena", "Oakland Center", "Pawley Hall", "Rec Center", "South Foundation Hall", 
     "Vandenberg Hall", "Varner Hall", "Wilson Hall"
@@ -180,7 +180,7 @@ const names = [
 const folderImageCounts = {
     "Dodge Hall": 10,
     "Engineering Center": 9,
-    "Elliot Hall": 12,
+    "Elliott Hall": 12,
     "Hannah Hall": 9,
     "Hillcrest Hall": 10,
     "Human Health Building": 6,
@@ -302,7 +302,7 @@ retryButton.addEventListener('click', () => {
 
 // Event listener for the "Home" button
 homeButton.addEventListener('click', () => {
-    window.location.href = 'home.html'; // Redirect to home.html
+    window.location.href = 'index.html'; // Redirect to index.html
 });
 
 
