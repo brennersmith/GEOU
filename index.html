@@ -48,5 +48,12 @@
             </a>
         </div>
         <img id="duck-icon" src="duck.png" alt="Duck Icon"/>
+        <script>
+            const duckIcon = document.getElementById('duck-icon');
+            duckIcon.addEventListener('click', () => {
+                const quackSound = new Audio('quack_5.mp3');
+                quackSound.play();
+            });
+        </script>
     </body>
 </html>

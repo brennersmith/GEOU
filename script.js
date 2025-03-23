@@ -96,6 +96,15 @@ map.on('click', (e) => {
 const feedbackPopup = document.getElementById('feedback-popup');
 const feedbackMessage = document.getElementById('feedback-message');
 
+// Function to play sound based on correctness
+function playSound(isCorrect) {
+    const audio = new Audio(isCorrect ? 'quack_5.mp3' : 'metal-pipe-clang.mp3');
+    if (!isCorrect) {
+        audio.volume = 0.5; // Lower the volume for incorrect sound
+    }
+    audio.play();
+}
+
 // Function to show the feedback popup
 function showFeedbackPopup(isCorrect, correctLocation) {
     feedbackMessage.textContent = isCorrect
@@ -104,6 +113,9 @@ function showFeedbackPopup(isCorrect, correctLocation) {
 
     feedbackPopup.className = `popup ${isCorrect ? 'correct' : 'incorrect'}`;
     feedbackPopup.style.display = 'block';
+
+    // Play the appropriate sound
+    playSound(isCorrect);
 
     // Disable the submit button while the popup is visible
     submitButton.disabled = true;
