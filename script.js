@@ -96,15 +96,6 @@ map.on('click', (e) => {
 const feedbackPopup = document.getElementById('feedback-popup');
 const feedbackMessage = document.getElementById('feedback-message');
 
-// Function to play sound based on correctness
-function playSound(isCorrect) {
-    const audio = new Audio(isCorrect ? 'quack_5.mp3' : 'metal-pipe-clang.mp3');
-    if (!isCorrect) {
-        audio.volume = 0.5; // Lower the volume for incorrect sound
-    }
-    audio.play();
-}
-
 // Function to show the feedback popup
 function showFeedbackPopup(isCorrect, correctLocation) {
     feedbackMessage.textContent = isCorrect
@@ -113,9 +104,6 @@ function showFeedbackPopup(isCorrect, correctLocation) {
 
     feedbackPopup.className = `popup ${isCorrect ? 'correct' : 'incorrect'}`;
     feedbackPopup.style.display = 'block';
-
-    // Play the appropriate sound
-    playSound(isCorrect);
 
     // Disable the submit button while the popup is visible
     submitButton.disabled = true;
@@ -189,9 +177,9 @@ const names = [
 ];
 
 // Mapping of folder names to the number of images in each folder
-const folderImageCounts = {
+const mainFolderImageCounts = {
     "Dodge Hall": 10,
-    "Engineering Center": 5,
+    "Engineering Center": 9,
     "Elliott Hall": 12,
     "Hannah Hall": 9,
     "Hillcrest Hall": 10,
@@ -210,8 +198,41 @@ const folderImageCounts = {
     "Wilson Hall": 6
 };
 
+const staircaseImageCounts = {
+    "Dodge Hall": 3,
+    "Engineering Center": 3,
+    "Elliott Hall": 1,
+    "Hannah Hall": 2,
+    "Hillcrest Hall": 2,
+    "Human Health Building": 2,
+    "Kresge Library": 1,
+    "O'Dowd Hall": 3,
+    "O'Rena": 1,
+    "Oakland Center": 2,
+    "Pawley Hall": 1,
+    "Rec Center": 2,
+    "South Foundation Hall": 2,
+    "Vandenberg Hall": 1,
+    "Varner Hall": 2,
+    "Wilson Hall": 1
+}
+
+class GameMode {
+    constructor(name, imageCounts, folderPath, totalRounds){
+        this.name = name;
+        this.imageCounts = imageCounts;
+        this.folderPath = folderPath;
+        this.score = 0;
+        this.currentRound = 0;
+        this.totalRounds = totalRounds;
+        this.currentChosenName = null;
+        this.correctRectangle = null;
+    }
+}
+
 // Function to randomly choose a name
 function chooseRandomName() {
+    const names = Object.keys(this.imageCounts);
     const randomIndex = Math.floor(Math.random() * names.length);
     return names[randomIndex];
 }
@@ -232,14 +253,13 @@ function setRandomBackground(name) {
 
 // Function to set a random image in the image container based on the chosen name
 function setRandomImage(name) {
-    const folderPath = `Random_Photos/${name}`; // Path to the folder
-    const imageCount = folderImageCounts[name] || 1; // Default to 1 if the folder is not in the mapping
-    const randomImageIndex = Math.floor(Math.random() * imageCount) + 1; // Random image index (1-based)
-    const imageUrl = `${folderPath}/image${randomImageIndex}.jpg`; // Construct the image path
-
+    const imageCount = this.folderImageCounts[name] || 1; // Default to 1 if the folder is not in the mapping
+    const randomIndex = Math.floor(Math.random() * imageCount) + 1; // Random image index (1-based)
+    const imageUrl = `${this.folderPath}/${name}/image${randomIndex}.jpg`; // Construct the image path
+    document.getElementById('random-image').src = imageUrl; // Set the image source')
     // Set the image source in the image container
-    const randomImageElement = document.getElementById('random-image');
-    randomImageElement.src = imageUrl;
+    // const randomImageElement = document.getElementById('random-image');
+    // randomImageElement.src = imageUrl;
 }
 
 // Randomly choose a name and set the image
@@ -253,33 +273,33 @@ setRandomImage(chosenName);
 let score = 0; // Initialize the score
 const scoreElement = document.getElementById('score');
 
-let correctRectangle = null; // Variable to store the correct rectangle for the current round
-let currentChosenName = null; // Variable to store the current chosen name
-let currentRound = 0; // Track the current round
-const totalRounds = 10; // Total number of rounds
+// let correctRectangle = null; // Variable to store the correct rectangle for the current round
+// let currentChosenName = null; // Variable to store the current chosen name
+// let currentRound = 0; // Track the current round
+// const totalRounds = 10; // Total number of rounds
 
 // Function to update the score display
 function updateScore() {
-    scoreElement.textContent = score;
+    document.getElementById('score').textContent = this.score;
 }
 
 // Function to start a new round
 function startNewRound() {
-    currentRound++;
-    if (currentRound > totalRounds) {
-        endGame(); // End the game if the round limit is reached
+    this.currentRound++;
+    if (this.currentRound > this.totalRounds) {
+        this.endGame(); // End the game if the round limit is reached
         return;
     }
 
-    const chosenName = chooseRandomName();
-    randomNameElement.textContent = `Round ${currentRound}/${totalRounds}`; // Update round info only
-    setRandomImage(chosenName);
+    const chosenName = this.chooseRandomName();
+    this.currentChosenName = chosenName; // Store the current chosen name
+    document.getElementById('random-name').textContent = `Round ${this.currentRound}/${this.totalRounds}`; // Update round info only
+    this.setRandomImage(chosenName);
 
     // Find and set the correct rectangle for the chosen name
-    correctRectangle = rectangles.find(region => region.name === chosenName);
-
-    return chosenName;
+    this.correctRectangle = this.rectangles.find(r => r.name === chosenName);
 }
+
 
 // Get modal elements
 const endGameModal = document.getElementById('end-game-modal');
@@ -295,15 +315,16 @@ function showEndGameModal() {
 
 // Function to end the game
 function endGame() {
-    showEndGameModal();
+    document.getElementById('final-score').textContent = `Game Over! You scored ${this.score} out of ${this.totalRounds}.`;
+    document.getElementById('end-game-modal').style.display = 'flex';
 }
 
 // Function to reset the game
 function resetGame() {
-    score = 0; // Reset the score
-    currentRound = 0; // Reset the round counter
-    updateScore(); // Update the score display
-    currentChosenName = startNewRound(); // Start the game from round 1
+    this.score = 0; // Reset the score
+    this.currentRound = 0; // Reset the round counter
+    this.updateScore(); // Update the score display
+    this.startNewRound();// Start the game from round 1
 }
 
 // Event listener for the "Retry" button
@@ -317,7 +338,19 @@ homeButton.addEventListener('click', () => {
     window.location.href = 'index.html'; // Redirect to index.html
 });
 
+const mainGEOU = new GameMode("Main GEOU", mainFolderImageCounts, "Random_Photos", 10);
+const staircaseGEOU = new GameMode("Staircase GEOU", staircaseImageCounts, "Staircase", 5);
 
-// Start the first round
-currentChosenName = startNewRound();
+let currentGame = null;
+
+function startGame(modeName){
+    if (modeName == mainGEOU){
+        currentGame = mainGEOU;
+    }
+    else if (modeName == staircaseGEOU){
+        currentGame = staircaseGEOU;
+    }
+
+    currentGame.resetGame();
+}
 
